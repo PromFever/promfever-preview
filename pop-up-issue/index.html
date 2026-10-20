@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Pop-Up Issue | Prom Fever</title>
+<meta name="description" content="Prom dress shopping as a night out. Free Prom Fever pop-ups at Hollingbury Golf Club, Brighton, on three Sundays in 2027.">
+<meta name="theme-color" content="#0b0608">
+<link rel="icon" href="assets/heart.png">
+<link rel="preload" href="fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  @font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-latin-opsz-normal.woff2) format("woff2-variations"); font-weight: 400 900; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-latin-opsz-italic.woff2) format("woff2-variations"); font-weight: 400 900; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Figtree"; src: url(fonts/figtree-latin-wght-normal.woff2) format("woff2-variations"); font-weight: 300 900; font-style: normal; font-display: swap; }
+
+  /* The rebrand: Prom Fever's own midnight and pink, and its own two faces. */
+  :root {
+    --sc-canvas:     #0b0608;
+    --sc-surface:    #170c11;
+    --sc-ink:        #fff3f1;
+    --sc-ink-soft:   #cdb8bf;
+    --sc-accent:     #f4516c;
+    --sc-accent-ink: #1a0a10;
+    --sc-font-display: "Bodoni Moda", "Bodoni 72", Didot, serif;
+    --sc-font-text:    "Figtree", system-ui, sans-serif;
+    --sc-font-mono:    "Figtree", system-ui, sans-serif;
+    --sc-shadow-color: 340 60% 3%;
+
+    /* Page grounds. Spreads cut between these like turned pages; they never blend. */
+    --pf-wine:  #2c0813;
+    --pf-black: #060304;
+    --pf-paper: #fbf7f4;
+    --pf-paper-ink: #1f0d14;
+    --pf-paper-soft: #6a525b;
+    --pf-paper-accent: #cf2748;   /* the same pink, one step darker, for the paper ground */
+    --pf-bar: 4rem;
+  }
+  html { background: var(--sc-canvas); }
+  body { font-weight: 450; letter-spacing: 0; }
+  .sc-display { font-weight: 500; font-optical-sizing: auto; letter-spacing: -0.015em; }
+  .sc-display em { font-style: italic; font-weight: 500; }
+  .sc-body { color: var(--sc-ink-soft); line-height: 1.66; letter-spacing: 0.005em; }
+
+  /* The logo heart, as a mask, coloured by the element's background. */
+  .pf-heart {
+    display: inline-block; width: 0.62em; height: 0.62em; margin-left: 0.14em; vertical-align: 0.02em;
+    background: currentColor;
+    -webkit-mask: url(assets/heart.png) center / contain no-repeat; mask: url(assets/heart.png) center / contain no-repeat;
+  }
+  .pf-nowrap { white-space: nowrap; }
+
+  /* ------------------------------------------------------------ chrome -- */
+  .pf-bar {
+    position: fixed; inset: 0 0 auto 0; z-index: var(--sc-z-chrome);
+    height: var(--pf-bar);
+    display: flex; align-items: center; justify-content: space-between; gap: var(--sc-4);
+    padding-inline: var(--sc-gutter);
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--sc-canvas) 70%, transparent), transparent);
+  }
+  .pf-folio { display: flex; align-items: center; gap: var(--sc-3); min-width: 0; text-decoration: none; }
+  .pf-folio img { width: 5.4rem; height: auto; }
+  .pf-folio__text { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pf-folio__text b { font-weight: 600; color: var(--sc-ink); }
+  .pf-folio__page { display: inline-block; transition: opacity var(--sc-d-base) var(--sc-ease-out); }
+  .pf-folio__page.is-swapping { opacity: 0; }
+
+  .pf-cta {
+    display: inline-flex; align-items: center; gap: var(--sc-2);
+    min-height: 2.75rem; padding: 0 1.25rem;
+    border-radius: var(--sc-r-pill);
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    font-weight: 650; font-size: var(--sc-t-sm); letter-spacing: 0.01em;
+    text-decoration: none; white-space: nowrap;
+    box-shadow: 0 10px 20px -12px rgb(6 3 4 / 0.7);
+    transition: background-color 160ms var(--sc-ease-out), transform 120ms var(--sc-ease-out);
+  }
+  .pf-cta:active { transform: translateY(1px) scale(0.98); }
+  @media (hover: hover) and (pointer: fine) { .pf-cta:hover { background: #ff6f88; } }
+  .pf-cta--lg { min-height: 3.25rem; padding: 0 1.75rem; font-size: var(--sc-t-base); }
+  .pf-cta svg { width: 1em; height: 1em; }
+
+  /* ------------------------------------------------------------- cover -- */
+  .pf-cover .sc-stage { background: var(--sc-canvas); }
+  .pf-cover__plate, .pf-cover__mast, .pf-cover__star, .pf-cover__fore { position: absolute; pointer-events: none; }
+  .pf-cover__plate { inset: -4%; width: 108%; height: 108%; max-width: none; object-fit: cover;
+    transform: scale(calc(1.06 - var(--sc-p, 0) * 0.05)) translate3d(0, calc(var(--sc-p, 0) * -2vh), 0); }
+  .pf-cover__mast {
+    top: calc(var(--pf-bar) + 1vh); left: var(--sc-gutter);
+    width: min(46vw, 56rem); height: auto; max-width: none;
+    transform-origin: 20% 30%;
+    transform: translate3d(0, calc(var(--sc-p, 0) * -16vh), 0) scale(calc(1 - var(--sc-p, 0) * 0.14));
+    opacity: calc(1 - var(--sc-p, 0) * 0.7);
+    filter: drop-shadow(0 18px 30px rgb(11 6 8 / 0.45));
+  }
+  .pf-cover__star {
+    right: -3vw; bottom: 0; height: 78vh; width: auto; max-width: none;
+    transform-origin: 50% 100%;
+    transform: translate3d(0, calc(var(--sc-p, 0) * -3vh), 0) scale(calc(1 + var(--sc-p, 0) * 0.08));
+    filter: drop-shadow(-24px 30px 40px rgb(11 6 8 / 0.55));
+  }
+  .pf-cover__star--tall { display: none; }
+  /* The flashes: soft discs of light nearest the lens, travelling fastest. */
+  .pf-cover__fore { inset: 0; transform: translate3d(0, calc(var(--sc-p, 0) * -38vh), 0); }
+  .pf-flash { position: absolute; border-radius: 50%; mix-blend-mode: screen;
+    background: radial-gradient(circle, rgb(255 236 240 / 0.9), rgb(255 160 180 / 0.35) 38%, transparent 70%); filter: blur(6px); }
+  .pf-flash--burst { animation: pf-burst 1.5s var(--sc-ease-out) both; }
+  @keyframes pf-burst { 0% { opacity: 0; transform: scale(0.6); } 12% { opacity: 1; transform: scale(1.15); } 100% { opacity: 0.38; transform: scale(1); } }
+  .pf-cover__floor { position: absolute; inset: auto 0 0 0; height: 30vh; pointer-events: none;
+    background: linear-gradient(to top, var(--sc-canvas), transparent); }
+  .pf-cover .sc-copy { max-width: min(25vw, 24rem); bottom: clamp(2.5rem, 9vh, 6rem); }
+  .pf-cover h1 { font-size: clamp(2.4rem, 1.2rem + 3vw, 4.4rem); line-height: 1.02; padding-bottom: 0.06em; }
+  .pf-cover .sc-body { margin-top: var(--sc-4); color: var(--sc-ink); font-size: var(--sc-t-lg); line-height: 1.45; max-width: 24ch; }
+  .pf-cover .pf-cta { margin-top: var(--sc-6); }
+  .pf-cover__lead-scrim { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(70% 70% at 0% 100%, rgb(11 6 8 / 0.92), rgb(11 6 8 / 0.55) 45%, transparent 75%); }
+
+  /* ---------------------------------------------------------- contents -- */
+  .pf-contents { background: var(--sc-surface); padding-block: clamp(4rem, 8vw, 8rem); }
+  .pf-contents__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+  .pf-contents__photo { margin: 0; position: relative; }
+  .pf-contents__photo img { width: 100%; height: auto; aspect-ratio: 1323 / 1189; object-fit: cover; border-radius: 2px;
+    box-shadow: 0 40px 60px -40px rgb(0 0 0 / 0.8); }
+  .pf-contents h2 { font-size: var(--sc-t-3xl); line-height: 1.04; max-width: 14ch; }
+  .pf-contents .sc-body { margin-top: var(--sc-5); font-size: var(--sc-t-lg); line-height: 1.55; max-width: 40ch; }
+  .pf-toc { list-style: none; margin: var(--sc-8) 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-6) var(--sc-7); }
+  .pf-toc a { display: grid; grid-template-columns: auto 1fr; gap: 0 var(--sc-4); text-decoration: none; padding-block: var(--sc-2); }
+  .pf-toc__num { grid-row: span 2; font-family: var(--sc-font-display); font-style: italic; font-size: 2.6rem; line-height: 0.9; color: var(--sc-accent); font-variant-numeric: lining-nums; }
+  .pf-toc__title { font-family: var(--sc-font-display); font-size: var(--sc-t-xl); line-height: 1.1; }
+  .pf-toc__dek { color: var(--sc-ink-soft); font-size: var(--sc-t-sm); margin-top: var(--sc-1); }
+  @media (hover: hover) and (pointer: fine) {
+    .pf-toc__title { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 240ms var(--sc-ease-out); }
+    .pf-toc a:hover .pf-toc__title { background-size: 100% 1px; }
+  }
+
+  /* ----------------------------------------------------------- catwalk -- */
+  .pf-catwalk .sc-stage { background: var(--pf-black); }
+  .pf-catwalk__media { position: absolute; inset: 0; margin: 0; }
+  .pf-catwalk__media img { width: 100%; height: 100%; object-fit: cover; object-position: 48% 26%; }
+  .pf-catwalk__scrim { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to left, rgb(6 3 4 / 0.9) 0%, rgb(6 3 4 / 0.7) 26%, transparent 55%); }
+  .pf-catwalk .sc-copy { max-width: min(36rem, 40vw); top: 50%; bottom: auto; translate: 0 -50%; }
+  .pf-catwalk h2 { font-size: var(--sc-t-3xl); line-height: 1.02; }
+  .pf-catwalk__dek { margin-top: var(--sc-5); }
+
+  /* -------------------------------------------------------------- edit -- */
+  .pf-edit .sc-stage { background: var(--pf-wine); }
+  .pf-edit__glow { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(80% 60% at 50% 0%, rgb(244 81 108 / 0.16), transparent 70%); }
+  .pf-rail { position: absolute; inset: 0 auto 0 0; display: flex; align-items: flex-start;
+    padding: calc(var(--pf-bar) + 7vh) var(--sc-gutter) 0; gap: clamp(0.75rem, 2vw, 2rem); }
+  /* The bar every gown hangs from. It belongs to the rail, so it travels with it. */
+  .pf-rail::before { content: ""; position: absolute; left: 0; right: 0; top: calc(var(--pf-bar) + 7vh); height: 3px; border-radius: 2px;
+    background: linear-gradient(to bottom, #e9c7cd, #9c6f78); box-shadow: 0 6px 10px -4px rgb(0 0 0 / 0.6); }
+  .pf-rail__lead, .pf-rail__end { flex: 0 0 auto; width: min(26rem, 78vw); padding-top: 8vh; }
+  .pf-rail__lead h2 { font-size: var(--sc-t-3xl); }
+  .pf-rail__lead .sc-body, .pf-rail__end .sc-body { margin-top: var(--sc-4); color: var(--sc-ink); opacity: 0.86; }
+  .pf-rail__end h3 { font-family: var(--sc-font-display); font-weight: 500; font-size: var(--sc-t-2xl); line-height: 1.05; margin: 0; }
+
+  .pf-gown { flex: 0 0 auto; width: clamp(9.5rem, 15vw, 15rem); position: relative; display: flex; flex-direction: column; align-items: center; }
+  .pf-gown__btn { all: unset; cursor: pointer; display: flex; flex-direction: column; align-items: center; width: 100%; border-radius: var(--sc-r-sm); -webkit-tap-highlight-color: transparent; }
+  .pf-gown__btn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 6px; }
+  /* Hanger and gown swing as one, pivoting on the hook at the rail. */
+  .pf-gown__swing { transform-origin: 50% 0; transform: rotate(var(--pf-a, 0deg)); display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .pf-gown__hook { width: 46%; height: auto; margin-top: -0.6rem; color: #d9b8be; }
+  .pf-gown__img { height: 54vh; width: auto; max-width: 100%; object-fit: contain; margin-top: -0.35rem;
+    filter: drop-shadow(0 26px 22px rgb(0 0 0 / 0.5)); transition: transform 240ms var(--sc-ease-out); }
+  .pf-gown__label { margin-top: var(--sc-4); text-align: center; line-height: 1.35; }
+  .pf-gown__name { display: block; font-family: var(--sc-font-display); font-size: var(--sc-t-lg); font-style: italic; }
+  .pf-gown__detail { display: block; font-size: var(--sc-t-sm); color: var(--sc-ink); opacity: 0.88; margin-top: 0.15rem; }
+  .pf-gown__style { display: block; font-size: var(--sc-t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sc-ink-soft); margin-top: 0.3rem; font-variant-numeric: tabular-nums; }
+  .pf-gown__tag { margin-top: var(--sc-2); font-size: var(--sc-t-xs); font-weight: 650; color: var(--sc-accent-ink); background: var(--sc-accent);
+    border-radius: var(--sc-r-pill); padding: 0.35rem 0.8rem; opacity: 0; transform: translateY(4px) scale(0.96);
+    transition: opacity 200ms var(--sc-ease-out), transform 200ms var(--sc-ease-out); }
+  .pf-gown.is-chosen .pf-gown__tag { opacity: 1; transform: none; }
+  .pf-gown.is-chosen .pf-gown__img { transform: translateY(-10px); }
+  @media (hover: hover) and (pointer: fine) { .pf-gown__btn:hover .pf-gown__img { transform: translateY(-6px); } }
+
+  /* -------------------------------------------------------------- hush -- */
+  .pf-hush .sc-stage { background: var(--pf-black); }
+  .pf-hush p { position: absolute; left: var(--sc-gutter); top: 44%; margin: 0; max-width: 18ch;
+    font-family: var(--sc-font-display); font-style: italic; font-size: var(--sc-t-2xl); line-height: 1.15; color: var(--sc-ink-soft); }
+
+  /* --------------------------------------------------------- centrefold -- */
+  .pf-mirror .sc-stage { background: var(--pf-black); }
+  .pf-mirror .sc-stage__poster { object-position: 62% 30%; }
+  .pf-mirror .sc-copy { max-width: min(30rem, 36vw); }
+  .pf-mirror h2 { font-size: var(--sc-t-4xl); line-height: 0.98; padding-bottom: 0.08em; }
+  .pf-mirror .sc-body { margin-top: var(--sc-5); color: var(--sc-ink); font-size: var(--sc-t-lg); line-height: 1.5; max-width: 26ch; }
+
+  /* ---------------------------------------------------------- back page -- */
+  .pf-back .sc-stage { background: var(--pf-wine); display: grid; grid-template-rows: 1fr auto; }
+  .pf-back__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: center;
+    padding: calc(var(--pf-bar) + 2rem) var(--sc-gutter) 1.5rem; max-width: var(--sc-maxw); margin-inline: auto; width: 100%; }
+  .pf-back h2 { font-size: var(--sc-t-3xl); line-height: 1.04; }
+  .pf-back__extras { margin-top: var(--sc-5); }
+
+  .pf-ticket { position: relative; display: grid; grid-template-columns: 1fr auto; background: var(--pf-paper); color: var(--pf-paper-ink);
+    border-radius: 6px; box-shadow: 0 50px 80px -40px rgb(0 0 0 / 0.85), 0 2px 0 rgb(255 255 255 / 0.6) inset;
+    transform: rotate(-1.5deg); }
+  .pf-ticket__main { padding: clamp(1.25rem, 2.6vw, 2.25rem); min-width: 0; }
+  .pf-ticket__logo { width: 8.5rem; height: auto; }
+  .pf-ticket__admit { font-family: var(--sc-font-display); font-size: var(--sc-t-xl); line-height: 1.1; margin: var(--sc-4) 0 0; }
+  .pf-ticket dl { display: grid; grid-template-columns: auto 1fr; gap: var(--sc-2) var(--sc-5); margin: var(--sc-5) 0 0; font-size: var(--sc-t-sm); }
+  .pf-ticket dt { color: var(--pf-paper-soft); font-size: var(--sc-t-xs); letter-spacing: 0.12em; text-transform: uppercase; padding-top: 0.15rem; }
+  .pf-ticket dd { margin: 0; font-weight: 600; }
+  .pf-ticket__pick { color: var(--pf-paper-accent); }
+  .pf-ticket .pf-cta { margin-top: var(--sc-6); background: var(--pf-paper-accent); color: #fff; }
+  @media (hover: hover) and (pointer: fine) { .pf-ticket .pf-cta:hover { background: #b81f3e; } }
+  .pf-ticket__note { margin: var(--sc-4) 0 0; font-size: var(--sc-t-xs); color: var(--pf-paper-soft); max-width: 46ch; }
+  /* The stub: three dates behind a perforation. */
+  .pf-ticket__stub { border-left: 2px dashed #d9c3c8; padding: clamp(1.25rem, 2.6vw, 2.25rem) clamp(1rem, 2vw, 1.75rem);
+    display: flex; flex-direction: column; justify-content: center; gap: var(--sc-4); }
+  .pf-ticket__stub::before, .pf-ticket__stub::after { content: ""; position: absolute; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--pf-wine);
+    right: calc(var(--pf-stub-w, 7.5rem) - 0.7rem); }
+  .pf-ticket__stub::before { top: -0.7rem; } .pf-ticket__stub::after { bottom: -0.7rem; }
+  .pf-date { text-align: center; line-height: 1; }
+  .pf-date__day { display: block; font-size: var(--sc-t-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--pf-paper-soft); }
+  .pf-date__num { display: block; font-family: var(--sc-font-display); font-size: 2rem; font-variant-numeric: lining-nums; margin-top: 0.2rem; }
+  .pf-date__mon { display: block; font-size: var(--sc-t-sm); font-weight: 600; margin-top: 0.15rem; }
+
+  .pf-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sc-3) var(--sc-6); padding: var(--sc-5) var(--sc-gutter) calc(var(--sc-5) + env(safe-area-inset-bottom));
+    font-size: var(--sc-t-xs); color: var(--sc-ink-soft); border-top: 1px solid rgb(255 243 241 / 0.1); }
+  .pf-foot a { color: var(--sc-ink); }
+  .pf-foot nav { display: flex; gap: var(--sc-5); }
+
+  /* ------------------------------------------------------------ phones -- */
+  @media (max-width: 860px) {
+    :root { --pf-bar: 3.5rem; }
+    .pf-folio__text { display: none; }
+    .pf-bar .pf-cta { min-height: 2.5rem; padding: 0 1rem; }
+    .pf-cover__mast { width: 84vw; left: 8vw; top: calc(var(--pf-bar) + 1.5vh); }
+    .pf-cover__star--wide { display: none; }
+    .pf-cover__star--tall { display: block; right: auto; left: 50%; height: 62svh; translate: -50% 0;
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 22%); mask-image: linear-gradient(to top, transparent 0%, #000 22%); }
+    .pf-cover__lead-scrim { background: linear-gradient(to top, rgb(11 6 8 / 0.96) 0%, rgb(11 6 8 / 0.8) 30%, transparent 55%); }
+    .pf-cover .sc-copy { max-width: none; bottom: max(1.5rem, env(safe-area-inset-bottom)); }
+    .pf-cover h1 { font-size: var(--sc-t-2xl); }
+    .pf-cover .sc-body { font-size: var(--sc-t-base); max-width: 32ch; margin-top: var(--sc-3); }
+    .pf-cover .pf-cta { margin-top: var(--sc-5); }
+
+    .pf-contents__grid { grid-template-columns: 1fr; }
+    .pf-contents__photo { order: 2; }
+    .pf-contents h2 { font-size: var(--sc-t-2xl); }
+    .pf-toc { grid-template-columns: 1fr; gap: var(--sc-3); margin-top: var(--sc-6); }
+
+    .pf-catwalk__scrim { background: linear-gradient(to top, rgb(6 3 4 / 0.95) 0%, rgb(6 3 4 / 0.75) 34%, transparent 62%); }
+    .pf-catwalk .sc-copy { top: auto; bottom: 2.5rem; translate: none; max-width: none; }
+    .pf-catwalk h2 { font-size: var(--sc-t-2xl); }
+
+    .pf-gown { width: 44vw; }
+    .pf-gown__img { height: 46svh; }
+    .pf-rail { padding-top: calc(var(--pf-bar) + 5vh); }
+    .pf-rail::before { top: calc(var(--pf-bar) + 5vh); }
+    .pf-rail__lead h2 { font-size: var(--sc-t-2xl); }
+
+    .pf-hush p { top: 40%; }
+    .pf-mirror .sc-copy { max-width: none; }
+    .pf-mirror h2 { font-size: var(--sc-t-3xl); }
+    .pf-mirror .sc-body { font-size: var(--sc-t-base); }
+
+    .pf-mirror .sc-scrim--lead { background: linear-gradient(to top, rgb(11 6 8 / 0.95) 0%, rgb(11 6 8 / 0.82) 30%, rgb(11 6 8 / 0.3) 52%, transparent 66%); }
+    /* The back page must still fit one phone screen: it is the final frame and it holds. */
+    .pf-back__inner { grid-template-columns: 1fr; gap: var(--sc-4); align-content: center; padding-top: calc(var(--pf-bar) + 0.5rem); padding-bottom: 0.5rem; }
+    .pf-back h2 { font-size: clamp(1.7rem, 7.4vw, 2.2rem); }
+    .pf-back__extras { display: none; }
+    .pf-ticket { grid-template-columns: 1fr; transform: rotate(-1deg); }
+    .pf-ticket__main { padding: 1rem 1.1rem 0.9rem; }
+    .pf-ticket__logo { width: 6.5rem; }
+    .pf-ticket__admit { font-size: var(--sc-t-lg); margin-top: var(--sc-2); }
+    .pf-ticket dl { margin-top: var(--sc-3); gap: 0.3rem var(--sc-4); }
+    .pf-ticket .pf-cta { margin-top: var(--sc-4); }
+    .pf-ticket__note { margin-top: var(--sc-2); }
+    .pf-ticket__stub { border-left: 0; border-top: 2px dashed #d9c3c8; flex-direction: row; justify-content: space-around; padding: 0.7rem 1rem; }
+    .pf-date__num { font-size: 1.5rem; }
+    .pf-foot { padding-block: var(--sc-3) calc(var(--sc-3) + env(safe-area-inset-bottom)); }
+    .pf-ticket__stub::before, .pf-ticket__stub::after { display: none; }
+  }
+
+  @media (max-width: 860px) and (max-height: 700px) {
+    .pf-ticket__note, .pf-ticket__logo { display: none; }
+    .pf-ticket__admit { margin-top: 0; }
+  }
+
+  /* --------------------------------------------------- reduced motion -- */
+  @media (prefers-reduced-motion: reduce) {
+    .pf-cover__plate, .pf-cover__mast, .pf-cover__star, .pf-cover__fore { transform: none !important; opacity: 1 !important; }
+    .pf-gown__swing { transform: none !important; }
+    .pf-flash--burst { animation: none; opacity: 0.38; }
+    .pf-rail { position: relative; inset: auto; height: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="pf-bar">
+  <a class="pf-folio" href="#cover" aria-label="Prom Fever, back to the cover">
+    <img src="assets/logo-pink.png" width="1636" height="916" alt="">
+    <span class="pf-folio__text"><b>The Pop-Up Issue</b> <span class="pf-folio__page" id="folio-page" aria-live="off"></span></span>
+  </a>
+  <a class="pf-cta" href="https://buytickets.at/promfever/2480882" target="_blank" rel="noopener">Book your free place</a>
+</header>
+
+<main>
+
+  <!-- COVER · anticipation. Layered: plate, masthead, the cover stars in front of it, flashes nearest the lens. -->
+  <section id="cover" class="pf-cover" data-sc-act="pin" data-sc-span="1.7" data-folio="">
+    <div data-sc-stage>
+      <picture>
+        <source media="(max-width: 860px)" srcset="assets/carpet-four-tall-plate-interim.webp">
+        <img class="pf-cover__plate" src="assets/carpet-four-plate-interim.webp" width="1672" height="941" alt="" fetchpriority="high">
+      </picture>
+      <img class="pf-cover__mast" src="assets/logo-white.png" width="1636" height="916" alt="">
+      <img class="pf-cover__star pf-cover__star--wide" src="assets/carpet-four-star.webp" width="1251" height="897"
+           alt="Four friends in prom gowns on a red carpet, looking back over their shoulders at the cameras">
+      <img class="pf-cover__star pf-cover__star--tall" src="assets/carpet-four-tall-star.webp" width="853" height="1233" alt="">
+      <div class="pf-cover__fore" aria-hidden="true">
+        <span class="pf-flash pf-flash--burst" style="left:6%;top:58%;width:9rem;height:9rem;animation-delay:.25s"></span>
+        <span class="pf-flash pf-flash--burst" style="left:82%;top:16%;width:6rem;height:6rem;animation-delay:.45s"></span>
+        <span class="pf-flash" style="left:64%;top:86%;width:14rem;height:14rem;opacity:.22"></span>
+        <span class="pf-flash pf-flash--burst" style="left:38%;top:8%;width:4rem;height:4rem;animation-delay:.7s"></span>
+      </div>
+      <div class="pf-cover__floor" aria-hidden="true"></div>
+      <div class="pf-cover__lead-scrim" aria-hidden="true"></div>
+      <div class="sc-copy sc-copy--lead" data-sc-cue="0 0.66 0">
+        <h1 class="sc-display"><span class="pf-nowrap">The Pop-Up</span> <em>Issue</em></h1>
+        <p class="sc-body">Find the dress. Feel amazing. Glow at your prom. Three Sundays in Brighton, free to book.</p>
+        <a class="pf-cta pf-cta--lg" href="https://buytickets.at/promfever/2480882" target="_blank" rel="noopener">Book your free place</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENTS · curiosity. An ordinary spread on a hard ground cut. -->
+  <section id="contents" class="pf-contents" data-folio="p.3 Contents">
+    <div class="sc-wrap pf-contents__grid">
+      <figure class="pf-contents__photo" data-sc-in>
+        <img src="assets/popup-smile.webp" width="1323" height="1189" loading="lazy"
+             alt="A girl in a sparkling pink gown smiling beside the rails at a Prom Fever pop-up">
+      </figure>
+      <div data-sc-in data-sc-stagger="60">
+        <h2 class="sc-display">Not your ordinary prom dress <em>shopping.</em></h2>
+        <p class="sc-body">Exclusive pop-up events with our own-label gowns you won’t find anywhere else in the UK. Bring your friends, try on your favourites and find the one.</p>
+        <ol class="pf-toc">
+          <li><a href="#catwalk"><span class="pf-toc__num">12</span><span class="pf-toc__title">The Catwalk</span><span class="pf-toc__dek">Models, music and a live DJ.</span></a></li>
+          <li><a href="#edit"><span class="pf-toc__num">24</span><span class="pf-toc__title">The Edit</span><span class="pf-toc__dek">Ten gowns from the rails. Pick yours.</span></a></li>
+          <li><a href="#mirror"><span class="pf-toc__num">36</span><span class="pf-toc__title">The Mirror</span><span class="pf-toc__dek">The moment you find the one.</span></a></li>
+          <li><a href="#ticket"><span class="pf-toc__num">48</span><span class="pf-toc__title">Your Ticket</span><span class="pf-toc__dek">Free places on three Sundays.</span></a></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATWALK · exhilaration. The line greets on black, then the runway wipes open under it. -->
+  <section id="catwalk" class="pf-catwalk" data-sc-act="pin" data-sc-span="1.7" data-folio="p.12 The Catwalk">
+    <div data-sc-stage>
+      <figure class="pf-catwalk__media" data-sc-reveal="up" data-sc-reveal-at="0.0 0.42">
+        <img src="assets/catwalk.webp" width="1400" height="933" loading="lazy"
+             alt="Models in prom gowns walking the catwalk while the audience films on their phones">
+      </figure>
+      <div class="pf-catwalk__scrim" aria-hidden="true"></div>
+      <div class="sc-copy sc-copy--trail" data-sc-cue="0 0.94 0 0.06">
+        <h2 class="sc-display" data-sc-kinetic="lines">Music on. Lights down. Here they <em>come.</em></h2>
+        <p class="sc-body pf-catwalk__dek">Watch our models walk the catwalk in every kind of gown, and see how each one fits and moves before you try a single dress on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE EDIT · delight. Signature move: real gowns that swing on the rail as it travels. -->
+  <section id="edit" class="pf-edit" data-sc-act="pan" data-sc-span="3" data-folio="p.24 The Edit">
+    <div data-sc-stage>
+      <div class="pf-edit__glow" aria-hidden="true"></div>
+      <div class="pf-rail" data-sc-pan="0.04" role="group" aria-label="The Edit: ten gowns">
+        <div class="pf-rail__lead">
+          <h2 class="sc-display">The <em>Edit</em></h2>
+          <p class="sc-body">Ten gowns from this season’s rails. Tap one to take it to your fitting room.</p>
+        </div>
+        <!-- gowns are filled in from GOWNS below so the label schema never drifts -->
+        <div class="pf-rail__end">
+          <h3>Rails and rails more at the pop-up.</h3>
+          <p class="sc-body">Scan the QR code on any dress to see it modelled on a real person, or step into the virtual fitting room.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUSH · authored silence before the peak. -->
+  <section class="pf-hush" data-sc-act="pin" data-sc-span="1.25" data-folio="p.35">
+    <div data-sc-stage>
+      <p data-sc-cue="0.05 0.8 0.2 0.25">Then there’s the moment nobody tells you about.</p>
+    </div>
+  </section>
+
+  <!-- CENTREFOLD · the peak. The one clip on the page, the biggest span, dwell on her settle. -->
+  <section id="mirror" class="pf-mirror" data-sc-act="scrub" data-sc-span="3.6" data-sc-dwell="0.45" data-folio="p.36 The Mirror">
+    <div data-sc-stage>
+      <img class="sc-stage__poster" src="assets/step3.webp" width="1400" height="933" loading="lazy"
+           alt="A girl in a pink beaded prom gown smiling at herself in the mirror while two friends look on">
+      <div class="sc-scrim sc-scrim--lead" aria-hidden="true"></div>
+      <div class="sc-copy sc-copy--lead" data-sc-cue="0.46 1 0.14 0.12">
+        <h2 class="sc-display">That’s the <em>one.</em></h2>
+        <p class="sc-body">Once you’ve chosen your dress, we won’t sell the same design to another girl from your school.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK PAGE · resolve. The ticket carries the gown chosen on the rail. -->
+  <section id="ticket" class="pf-back" data-sc-act="pin" data-sc-span="1.2" data-folio="p.48 Your Ticket">
+    <div data-sc-stage>
+      <div class="pf-back__inner">
+        <div data-sc-cue="0 1 0 0" data-sc-rise="0">
+          <h2 class="sc-display">Your place is free. Your dress is <span class="pf-nowrap"><em>waiting.</em><span class="pf-heart" aria-hidden="true" style="color:var(--sc-accent)"></span></span></h2>
+          <p class="sc-body pf-back__extras">Live DJ, catwalk show, photographer, virtual fitting room, free parking, and a bar serving drinks to buy.</p>
+        </div>
+        <article class="pf-ticket" data-sc-cue="0 1 0 0" aria-label="Your ticket">
+          <div class="pf-ticket__main">
+            <img class="pf-ticket__logo" src="assets/logo-pink.png" width="1636" height="916" alt="Prom Fever">
+            <p class="pf-ticket__admit">Admit one student, with a parent or guardian</p>
+            <dl>
+              <dt>Venue</dt><dd>Hollingbury Golf Club, Brighton</dd>
+              <dt>Price</dt><dd>Free, places are limited</dd>
+              <dt>Your pick</dt><dd class="pf-ticket__pick" id="ticket-pick">Choose on the day</dd>
+            </dl>
+            <a class="pf-cta pf-cta--lg" href="https://buytickets.at/promfever/2480882" target="_blank" rel="noopener">Book your free place
+              <svg viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" d="M204 64v104a12 12 0 0 1-24 0V93L72.5 200.5a12 12 0 0 1-17-17L163 76H88a12 12 0 0 1 0-24h104a12 12 0 0 1 12 12Z"/></svg></a>
+            <p class="pf-ticket__note">You’ll pick your Sunday when you book. Students must attend with a parent or guardian.</p>
+          </div>
+          <div class="pf-ticket__stub" aria-label="Dates">
+            <p class="pf-date"><span class="pf-date__day">Sun</span><span class="pf-date__num">24</span><span class="pf-date__mon">Jan 2027</span></p>
+            <p class="pf-date"><span class="pf-date__day">Sun</span><span class="pf-date__num">28</span><span class="pf-date__mon">Feb 2027</span></p>
+            <p class="pf-date"><span class="pf-date__day">Sun</span><span class="pf-date__num">21</span><span class="pf-date__mon">Mar 2027</span></p>
+          </div>
+        </article>
+      </div>
+      <footer class="pf-foot">
+        <span>© 2026 Prom Fever. Own-label prom gowns, Brighton &amp; Hove.</span>
+        <nav aria-label="Prom Fever elsewhere">
+          <a href="https://getpromfever.com" target="_blank" rel="noopener">getpromfever.com</a>
+          <a href="https://instagram.com/prom.fever" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>
+(function () {
+  // The Edit. Real stock, labelled only with what the photo shows. No prices, no invented colourways.
+  var GOWNS = [
+    { id: '55149',    file: '55149',    name: 'Fuchsia satin',   detail: 'Draped strapless',       w: 313, h: 1100 },
+    { id: '1064',     file: '1064',     name: 'Ice blue organza', detail: 'Ruffled sash',          w: 451, h: 1100 },
+    { id: '55150',    file: '55150',    name: 'Olive sequin',    detail: 'One shoulder, rosette',  w: 301, h: 1100 },
+    { id: '1204',     file: '1204',     name: 'Turquoise crepe', detail: 'Rosette at the waist',   w: 375, h: 1100 },
+    { id: '55482',    file: '55482-02', name: 'Garnet and red',  detail: 'Sequin bodice, satin drape', w: 329, h: 1100 },
+    { id: '1028',     file: '1028',     name: 'Ivory chiffon',   detail: 'Floral straps',          w: 341, h: 1100 },
+    { id: '55575',    file: '55575',    name: 'Lilac sequin',    detail: 'Cowl neck, side split',  w: 275, h: 1100 },
+    { id: '1209',     file: '1209',     name: 'Cyan satin',      detail: 'Halter neck',            w: 216, h: 1100 },
+    { id: '55514',    file: '55514',    name: 'Mint satin',      detail: 'Wrap skirt',             w: 376, h: 1027 },
+    { id: '55482',    file: '55482-05', name: 'Aqua sequin',     detail: 'Sweetheart neckline',    w: 331, h: 1100 }
+  ];
+  var KEY = 'pf-pick';
+  var HOOK = '<svg class="pf-gown__hook" viewBox="0 0 100 46" aria-hidden="true"><path d="M50 14V8a6 6 0 1 0-6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M50 14 6 40h88Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>';
+
+  var rail = document.querySelector('.pf-rail');
+  var end = rail.querySelector('.pf-rail__end');
+  GOWNS.forEach(function (g, i) {
+    var el = document.createElement('div');
+    el.className = 'pf-gown';
+    el.dataset.index = i;
+    el.innerHTML =
+      '<button type="button" class="pf-gown__btn" aria-pressed="false">' +
+        '<span class="pf-gown__swing">' + HOOK +
+          '<img class="pf-gown__img" src="assets/gowns/' + g.file + '.webp" width="' + g.w + '" height="' + g.h + '" loading="lazy" alt="">' +
+        '</span>' +
+        '<span class="pf-gown__label"><span class="pf-gown__name">' + g.name + '</span>' +
+        '<span class="pf-gown__detail">' + g.detail + '</span>' +
+        '<span class="pf-gown__style">Style ' + g.id + '</span></span>' +
+        '<span class="pf-gown__tag" aria-hidden="true">In your fitting room</span>' +
+      '</button>';
+    el.querySelector('button').setAttribute('aria-label', g.name + ', ' + g.detail.toLowerCase() + ', style ' + g.id + '. Take it to your fitting room');
+    rail.insertBefore(el, end);
+  });
+
+  ScrollCraft.mount(document.body);
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gowns = [].slice.call(rail.querySelectorAll('.pf-gown'));
+  var pickEl = document.getElementById('ticket-pick');
+
+  function choose(i, quiet) {
+    gowns.forEach(function (el, j) {
+      var on = j === i;
+      el.classList.toggle('is-chosen', on);
+      el.querySelector('button').setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var g = GOWNS[i];
+    pickEl.textContent = g ? g.name + ', style ' + g.id : 'Choose on the day';
+    try { if (!quiet) localStorage.setItem(KEY, String(i)); } catch (e) {}
+    if (!quiet && g && !reduce) kick(i, 9);
+  }
+  try { var saved = localStorage.getItem(KEY); if (saved !== null && GOWNS[+saved]) choose(+saved, true); } catch (e) {}
+
+  gowns.forEach(function (el, i) {
+    var btn = el.querySelector('button');
+    btn.addEventListener('click', function () {
+      var already = el.classList.contains('is-chosen');
+      choose(already ? -1 : i);
+      if (already) { try { localStorage.removeItem(KEY); } catch (e) {} }
+    });
+    // Keyboard focus through a transform-driven rail has to bring the gown into view itself.
+    btn.addEventListener('focus', function () {
+      if (reduce) return;
+      var act = document.getElementById('edit');
+      var travel = rail.scrollWidth - innerWidth;
+      if (travel <= 0) return;
+      var target = el.offsetLeft + el.offsetWidth / 2 - innerWidth / 2;
+      var p = Math.min(1, Math.max(0, target / (travel * 1.04)));
+      var top = act.getBoundingClientRect().top + scrollY;
+      window.scrollTo({ top: top + p * (act.offsetHeight - innerHeight), behavior: 'instant' });
+    });
+  });
+
+  // ---- The swing. Each gown is a damped pendulum hung from the rail.
+  // The rail's own travel is the drive, so gowns trail behind the direction you scroll,
+  // and a pointer brushing across a gown nudges it. Longer gowns swing slower.
+  var state = gowns.map(function (el, i) {
+    var g = GOWNS[i];
+    return { el: el, swing: el.querySelector('.pf-gown__swing'), a: 0, v: 0, k: 0.022 * (1100 / g.h) * (0.78 + ((i * 7) % 5) * 0.1) };
+  });
+  function kick(i, amount) { if (state[i]) state[i].v += amount * 0.06; }
+
+  if (!reduce) {
+    var lastX = null, running = false, raf = 0, last = 0;
+    var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (fine) {
+      gowns.forEach(function (el, i) {
+        el.addEventListener('pointermove', function (e) { state[i].v += Math.max(-1.2, Math.min(1.2, e.movementX * 0.035)); });
+      });
+    }
+    function tick(t) {
+      var dt = last ? Math.min(3, (t - last) / 16.67) : 1; last = t;
+      var x = rail.getBoundingClientRect().left;
+      var dx = lastX === null ? 0 : x - lastX; lastX = x;
+      var settled = Math.abs(dx) < 0.05;
+      for (var i = 0; i < state.length; i++) {
+        var s = state[i];
+        // The rail moves left, the hem lags right: angle opposes the rail's velocity.
+        var drive = Math.max(-2.4, Math.min(2.4, dx * 0.05));
+        s.v += (-s.k * s.a - 0.075 * s.v) * dt + drive * 0.055 * dt;
+        s.a += s.v * dt;
+        if (s.a > 11) { s.a = 11; s.v *= -0.3; } else if (s.a < -11) { s.a = -11; s.v *= -0.3; }
+        if (Math.abs(s.a) > 0.02 || Math.abs(s.v) > 0.02) settled = false;
+        s.swing.style.setProperty('--pf-a', s.a.toFixed(2) + 'deg');
+      }
+      raf = running || !settled ? requestAnimationFrame(tick) : 0;
+    }
+    function wake() { if (!raf) { last = 0; raf = requestAnimationFrame(tick); } }
+    var io = new IntersectionObserver(function (es) {
+      running = es[0].isIntersecting;
+      if (running) wake();
+    }, { rootMargin: '20% 0px' });
+    io.observe(document.getElementById('edit'));
+    rail.addEventListener('pointermove', wake);
+    rail.addEventListener('click', wake);
+  }
+
+  // ---- The folio: the running page number in the top margin, as the issue turns.
+  var folio = document.getElementById('folio-page');
+  var current = null;
+  var spreads = [].slice.call(document.querySelectorAll('[data-folio]'));
+  var seen = new Map();
+  var fio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { seen.set(e.target, e.isIntersecting ? e.intersectionRect.height : 0); });
+    var best = null, h = -1;
+    seen.forEach(function (v, k) { if (v > h) { h = v; best = k; } });
+    var text = best ? best.dataset.folio : '';
+    if (text === current) return;
+    current = text;
+    folio.classList.add('is-swapping');
+    setTimeout(function () { folio.textContent = text ? '· ' + text : ''; folio.classList.remove('is-swapping'); }, reduce ? 0 : 160);
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+  spreads.forEach(function (s) { fio.observe(s); });
+})();
+</script>
+</body>
+</html>
