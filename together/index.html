@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prom Fever Together: find her prom dress together</title>
+<meta name="description" content="Free Prom Fever pop-ups in Brighton for Year 11 students and the parent or guardian coming with them. Three Sundays in 2027 at Hollingbury Golf Club.">
+<meta name="theme-color" content="#FBF7F4">
+<meta property="og:title" content="Prom Fever Together">
+<meta property="og:description" content="Find her prom dress together. Free pop-ups in Brighton, three Sundays in 2027.">
+<meta property="og:image" content="https://together.getpromfever.com/assets/popup-smile.webp">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="fonts/bodoni-moda-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/shopping-together.webp" as="image">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  @font-face { font-family: "Bodoni Moda"; src: url(fonts/bodoni-moda-latin-wght-normal.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: "Bodoni Moda"; font-style: italic; src: url(fonts/bodoni-moda-latin-wght-italic.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
+  @font-face { font-family: "Figtree"; src: url(fonts/figtree-latin-wght-normal.woff2) format("woff2"); font-weight: 300 900; font-display: swap; }
+  @font-face { font-family: "Water Brush"; src: url(fonts/water-brush-latin-400-normal.woff2) format("woff2"); font-display: swap; }
+
+  :root {
+    --sc-canvas:     #FBF7F4;
+    --sc-surface:    #FFFFFF;
+    --sc-ink:        #1F0D14;
+    --sc-ink-soft:   #6B4A55;
+    --sc-accent:     #CF2748;
+    --sc-accent-ink: #FFFFFF;
+    --sc-font-display: "Bodoni Moda", Georgia, serif;
+    --sc-font-text:    "Figtree", system-ui, sans-serif;
+    --sc-shadow-color: 345 40% 25%;
+    --paper: #FBF7F4;
+    --blush: #FDE3E7;
+    --night: #1F0D14;
+    --brand: #F4516C;
+    --gutter: clamp(1.25rem, 5vw, 5rem);
+    --nav-h: 52px;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .display { font-family: var(--sc-font-display); font-weight: 500; margin: 0; text-wrap: balance; letter-spacing: -0.03em; line-height: 0.98; }
+  .tag { font-size: var(--sc-t-sm); font-weight: 650; letter-spacing: 0.01em; color: var(--sc-accent); margin: 0; }
+  .soft { color: var(--sc-ink-soft); }
+  .heart { display: inline-block; width: 0.95em; height: 0.85em; background: var(--brand); vertical-align: -0.1em;
+    -webkit-mask: url(assets/heart.png) center / contain no-repeat; mask: url(assets/heart.png) center / contain no-repeat; }
+  .glass { background: rgb(255 255 255 / 0.46); border: 1px solid rgb(255 255 255 / 0.72);
+    -webkit-backdrop-filter: blur(28px) saturate(1.8); backdrop-filter: blur(28px) saturate(1.8);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 2px 6px hsl(345 40% 25% / 0.08), 0 24px 60px -18px hsl(345 40% 25% / 0.35); }
+  .pill { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; border-radius: 999px; background: var(--sc-accent);
+    color: #fff; font-weight: 600; text-decoration: none; transition: transform 140ms var(--sc-ease-out), background-color 200ms ease; }
+  .pill:hover { background: #B81F3E; }
+  .pill:active { transform: scale(0.97); }
+
+  /* ------------------------------------------------- local nav (Apple) -- */
+  .nav { position: fixed; z-index: 80; inset: 0 0 auto 0; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between;
+    padding-inline: var(--gutter); background: rgb(251 247 244 / 0.72); -webkit-backdrop-filter: blur(20px) saturate(1.8); backdrop-filter: blur(20px) saturate(1.8);
+    box-shadow: 0 1px 0 rgb(31 13 20 / 0.08); transition: background-color 400ms ease, box-shadow 400ms ease, color 400ms ease; }
+  .nav__brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: inherit; }
+  .nav__brand img { width: 92px; height: auto; }
+  .nav__brand span { font-weight: 650; font-size: 1.02rem; letter-spacing: -0.01em; padding-left: 0.7rem; border-left: 1px solid rgb(31 13 20 / 0.18); }
+  .nav .pill { font-size: 0.82rem; padding: 0.45rem 0.95rem; transition: opacity 300ms ease, transform 140ms var(--sc-ease-out), background-color 200ms ease; }
+  .nav.is-dark { background: rgb(31 13 20 / 0.6); color: #FBF7F4; box-shadow: 0 1px 0 rgb(255 255 255 / 0.08); }
+  .nav.is-dark .nav__brand span { border-color: rgb(255 255 255 / 0.25); }
+  .nav.no-cta .pill { opacity: 0; pointer-events: none; }
+
+  .stage { overflow: clip; background: var(--paper); }
+  [data-day] .stage { background: var(--blush); }
+  .hush .stage, .peak .stage { background: var(--night); }
+  .fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------------------------------------------------------- 1 hero ---- */
+  .hero__title { position: absolute; z-index: 2; inset: calc(var(--nav-h) + 9vh) var(--gutter) auto; text-align: center; transform-origin: 50% 0; }
+  .hero__title h1 { font-size: clamp(3.4rem, 1.2rem + 8.4vw, 10.5rem); }
+  .hero__title p { margin: 1.4rem auto 0; max-width: 34ch; font-size: var(--sc-t-lg); line-height: 1.4; color: var(--sc-ink-soft); }
+  .hero__plate, .hero__people { position: absolute; inset: 0; clip-path: inset(var(--ct, 54vh) var(--cs, 20vw) var(--cb, 5vh) var(--cs, 20vw)); }
+  .hero__plate { z-index: 1; }
+  .hero__people { z-index: 3; pointer-events: none; }
+  .hero__plate img, .hero__people img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+    transform-origin: 50% 30%; }
+  .hero__plate img { transform: translate3d(0, var(--py, 34vh), 0) scale(var(--ps, 1.2)); }
+  .hero__people img { transform: translate3d(0, var(--py, 34vh), 0) scale(var(--qs, 1.23)); }
+  .hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(251 247 244 / 0.75) 0%, rgb(251 247 244 / 0.25) 30%, transparent 46%); opacity: var(--hv, 0); }
+
+  /* -------------------------------------------------------- 2 voices ---- */
+  .voices { display: grid; grid-template-columns: 1fr 1px 1fr; height: 100%; align-items: center; padding: calc(var(--nav-h) + 4vh) var(--gutter) 6vh; gap: clamp(1.5rem, 5vw, 5rem); }
+  .voices__seam { align-self: stretch; margin-block: 10vh; background: linear-gradient(180deg, transparent, rgb(207 39 72 / 0.45) 30%, rgb(207 39 72 / 0.45) 70%, transparent); position: relative; }
+  .voices__seam i { position: absolute; left: 50%; top: var(--hy, 0%); width: 26px; height: 24px; margin: -12px 0 0 -13px; background: var(--brand);
+    -webkit-mask: url(assets/heart.png) center / contain no-repeat; mask: url(assets/heart.png) center / contain no-repeat; }
+  .voice .display { font-size: clamp(2.4rem, 0.8rem + 4.6vw, 6.4rem); margin-top: 1rem; }
+  .voice--mum { padding-top: 16vh; }
+  .voice__worry { margin: 1.6rem 0 0; max-width: 30ch; font-size: var(--sc-t-lg); line-height: 1.45; color: var(--sc-ink-soft); }
+
+  /* -------------------------------------------------------- 3 invite ---- */
+  .invite__bg { transform: scale(var(--bs, 1.15)); }
+  .invite__veil { position: absolute; inset: 0; background: radial-gradient(70% 70% at 50% 55%, rgb(251 247 244 / 0.15), rgb(251 247 244 / 0.5)); }
+  .ticket { position: absolute; z-index: 5; left: 50%; top: 54%; width: min(36rem, calc(100vw - 2 * var(--gutter))); perspective: 1400px; translate: -50% -50%; }
+  .ticket__card { padding: clamp(1.6rem, 4vw, 3rem); transform-origin: 50% 100%;
+    transform: translate3d(0, var(--ty, 60vh), 0) rotateX(var(--rx, 28deg)) scale(var(--ts, 0.92)); }
+  .ticket__top { display: flex; justify-content: space-between; gap: 1rem; font-size: var(--sc-t-sm); font-weight: 600; }
+  .ticket h2 { font-size: clamp(2.6rem, 1.4rem + 3.6vw, 4.8rem); margin-top: 1.4rem; }
+  .ticket__rule { border: 0; border-top: 1px dashed rgb(31 13 20 / 0.3); margin: 1.5rem 0 1.1rem; }
+  .ticket dl { display: grid; grid-template-columns: auto 1fr; gap: 0.45rem 1.4rem; margin: 0; }
+  .ticket dt { color: var(--sc-ink-soft); }
+  .ticket dd { margin: 0; font-weight: 600; }
+
+  /* --------------------------------------------------------- 4 the day -- */
+  .day__head { position: absolute; z-index: 2; inset: calc(var(--nav-h) + 6vh) var(--gutter) auto; display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+  .day__head h2 { font-size: clamp(2.6rem, 1rem + 4.6vw, 6rem); }
+  .day__head p { max-width: 28ch; font-size: var(--sc-t-lg); line-height: 1.4; margin: 0; }
+  .rail { position: absolute; left: 0; bottom: 6vh; display: flex; gap: clamp(0.9rem, 1.6vw, 1.5rem); padding-inline: var(--gutter); transform: translate3d(var(--rx, 0px), 0, 0); will-change: transform; }
+  .card { position: relative; flex: none; width: clamp(17rem, 30vw, 28rem); height: min(60vh, 40rem); overflow: clip; margin: 0; background: #fff; }
+  .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .card figcaption { position: absolute; inset: auto 0.75rem 0.75rem; padding: 1rem 1.1rem; }
+  .card h3 { font-family: var(--sc-font-display); font-weight: 500; font-size: clamp(1.5rem, 1rem + 1.2vw, 2.1rem); letter-spacing: -0.02em; line-height: 1.05; margin: 0.25rem 0 0; }
+  .card p { margin: 0.4rem 0 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); line-height: 1.4; }
+  .card--type { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(1.4rem, 2.4vw, 2rem); }
+  .card--type h3 { font-size: clamp(2.6rem, 1.4rem + 3vw, 4.4rem); }
+  .card--type p { font-size: var(--sc-t-lg); }
+  .card--rose { background: var(--sc-accent); color: #fff; }
+  .card--rose .tag, .card--rose p { color: rgb(255 255 255 / 0.86); }
+  .card--night { background: var(--night); color: #FBF7F4; }
+  .card--night .tag { color: #F7A3B4; }
+  .card--night p { color: rgb(251 247 244 / 0.72); }
+
+  /* -------------------------------------------------------- 5 rails ----- */
+  .rails__bg { transform: scale(var(--bs, 1.3)); }
+  .rails__veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(31 13 20 / 0.78) 0%, rgb(31 13 20 / 0.35) 34%, transparent 60%); }
+  .rails__copy { position: absolute; z-index: 2; left: var(--gutter); right: var(--gutter); bottom: 9vh; color: #FBF7F4;
+    opacity: var(--co, 0); transform: translate3d(0, var(--cy, 30px), 0); }
+  .rails__copy .tag { color: #F7A3B4; }
+  .price { font-family: var(--sc-font-display); font-weight: 500; font-size: clamp(3.6rem, 1.4rem + 8vw, 10rem); letter-spacing: -0.04em; line-height: 0.95; margin: 0.6rem 0 0; }
+  .price span { font-style: italic; font-weight: 400; font-size: 0.42em; letter-spacing: 0; }
+  .rails__copy p:last-child { margin: 1rem 0 0; max-width: 34ch; font-size: var(--sc-t-lg); color: rgb(251 247 244 / 0.82); }
+
+  /* ------------------------------------------------- 6 hush + 7 peak ---- */
+  .hush, .peak { color: #FBF7F4; }
+  .slit { position: absolute; left: 50%; top: 14vh; bottom: 14vh; width: 2px; margin-left: -1px; transform: scaleY(var(--sy, 0));
+    background: linear-gradient(180deg, transparent, #FFE9EE 20%, #fff 50%, #FFE9EE 80%, transparent);
+    box-shadow: 0 0 24px 4px rgb(255 200 214 / 0.5), 0 0 80px 10px rgb(244 81 108 / 0.25); }
+  .whisper { position: absolute; right: calc(50% + 2.5rem); top: 50%; translate: 0 -50%; margin: 0; text-align: right;
+    font-family: "Water Brush", cursive; font-size: clamp(2.8rem, 1.6rem + 3.8vw, 5.6rem); line-height: 1.1; color: #F9B8C6; }
+  .peak__frame { position: absolute; inset: 0; clip-path: inset(0 var(--sw, 49.9%) 0 var(--sw, 49.9%)); }
+  .peak__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 22%; transform-origin: 62% 100%; }
+  .peak__plate { transform: scale(var(--ps, 1.16)); }
+  .peak__her { transform: scale(var(--hs, 1.22)); }
+  .peak__dim { position: absolute; inset: 0; background: var(--night); opacity: var(--dim, 0.5); }
+  .peak__shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(31 13 20 / 0.7) 0%, rgb(31 13 20 / 0.2) 30%, transparent 48%); opacity: var(--lo, 0); }
+  .peak__line { position: absolute; z-index: 3; left: var(--gutter); bottom: 9vh; margin: 0; opacity: var(--lo, 0); transform: translate3d(0, var(--ly, 40px), 0); }
+  .peak__line h2 { font-size: clamp(3.6rem, 1.4rem + 7.6vw, 10rem); font-style: italic; font-weight: 400; }
+
+  /* ------------------------------------------------------ 8 promise ----- */
+  .promise { display: grid; place-content: center; height: 100%; padding: calc(var(--nav-h) + 4vh) var(--gutter) 6vh; max-width: 74rem; margin-inline: auto; }
+  .promise blockquote { margin: 1.4rem 0 0; }
+  .promise blockquote p { font-family: var(--sc-font-display); font-weight: 500; font-size: clamp(2.2rem, 0.9rem + 4.2vw, 5.6rem); line-height: 1.04; letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+  .promise__after { margin: 2rem 0 0; font-size: var(--sc-t-lg); color: var(--sc-ink-soft); opacity: var(--ao, 0); }
+
+  /* -------------------------------------------------------- 9 close ----- */
+  .close { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;
+    padding: calc(var(--nav-h) + 3vh) var(--gutter) 5.5rem; }
+  .close h2 { font-size: clamp(2.8rem, 1rem + 5.6vw, 7rem); }
+  .dates { list-style: none; padding: 0; margin: clamp(1.8rem, 5vh, 3rem) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 13rem)); gap: clamp(0.6rem, 1.4vw, 1rem); }
+  .dates li { padding: 1.2rem 1rem 1.1rem; background: #fff; box-shadow: 0 1px 0 rgb(31 13 20 / 0.06), 0 18px 40px -24px hsl(345 40% 25% / 0.4); }
+  .dates b { display: block; font-family: var(--sc-font-display); font-weight: 500; font-size: clamp(2rem, 1.2rem + 2vw, 3.2rem); letter-spacing: -0.03em; line-height: 1; margin: 0.3rem 0 0.4rem; }
+  .dates span { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+  .close__info { margin: 1.6rem auto 0; max-width: 52ch; color: var(--sc-ink-soft); text-wrap: balance; }
+  .close .pill { margin-top: 1.6rem; font-size: 1.05rem; padding: 1rem 1.8rem; box-shadow: 0 10px 28px -10px rgb(207 39 72 / 0.6); }
+  .foot { position: absolute; inset: auto var(--gutter) 1.2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.4rem; font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+  .foot a { color: var(--sc-ink); }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .glass, .nav { -webkit-backdrop-filter: none; backdrop-filter: none; background: #FBF7F4; }
+  }
+
+  /* ---------------------------------------------------------- phone ----- */
+  @media (max-width: 760px) {
+    .nav__brand img { width: 78px; }
+    .nav__brand span { display: none; }
+    .hero__title { inset-block-start: calc(var(--nav-h) + 6vh); }
+    .hero__title h1 { font-size: clamp(3rem, 15vw, 4.4rem); }
+    .hero__title p { font-size: var(--sc-t-base); }
+    .hero__plate img, .hero__people img { object-position: 36% 30%; }
+    .voices { grid-template-columns: 1fr; grid-template-rows: 1fr 1px 1fr; gap: 1.2rem; padding-top: calc(var(--nav-h) + 3vh); }
+    .voices__seam { margin: 0 8vw; background: linear-gradient(90deg, transparent, rgb(207 39 72 / 0.45) 30%, rgb(207 39 72 / 0.45) 70%, transparent); }
+    .voices__seam i { top: 50%; left: var(--hy, 0%); }
+    .voice { align-self: end; }
+    .voice--mum { padding-top: 0; align-self: start; }
+    .voice .display { font-size: clamp(2rem, 9.4vw, 2.9rem); margin-top: 0.5rem; }
+    .voice__worry { font-size: var(--sc-t-base); margin-top: 0.8rem; }
+    .day__head { flex-direction: column; align-items: start; gap: 0.6rem; }
+    .day__head p { font-size: var(--sc-t-base); }
+    .rail { bottom: 4vh; }
+    .card { width: 78vw; height: 54svh; }
+    .whisper { right: auto; left: 50%; top: 24vh; translate: -50% 0; text-align: center; white-space: nowrap; font-size: 3rem; }
+    .slit { top: 36vh; bottom: 10vh; }
+    .peak__frame img { object-position: 64% 20%; }
+    .dates { grid-template-columns: repeat(3, 1fr); width: 100%; }
+    .dates li { padding: 0.8rem 0.4rem; }
+    .dates b { font-size: 1.7rem; }
+    .close__info { font-size: var(--sc-t-sm); }
+    .foot { gap: 0.3rem 1rem; bottom: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Prom Fever Together">
+  <a class="nav__brand" href="https://getpromfever.com"><img src="assets/logo.png" alt="Prom Fever" width="900" height="504"><span>Together</span></a>
+  <a class="pill" href="#book">Book your free places</a>
+</nav>
+
+<main>
+  <!-- 1 TWO SIDES: the photograph grows to fill the screen, the people rise in front of the title -->
+  <section data-sc-act="pin" data-sc-span="2.2" data-sc-drift="#FBF7F4" data-hero>
+    <div data-sc-stage class="stage">
+      <div class="hero__plate"><img src="assets/shopping-together.webp" alt="" width="1800" height="1200"><div class="hero__veil"></div></div>
+      <div class="hero__title">
+        <h1 class="display">Find it together.</h1>
+        <p>A free Prom Fever afternoon in Brighton for Year 11 students and the parent or guardian coming with them.</p>
+      </div>
+      <div class="hero__people"><img src="assets/cut-people.webp" alt="Two mums with drinks and two girls looking through a rail of prom dresses" width="1400" height="933"></div>
+    </div>
+  </section>
+
+  <!-- 2 TWO VOICES: each side's words fill in as you scroll, hers and then mum's -->
+  <section data-sc-act="pin" data-sc-span="2.2" data-sc-drift="#FBF7F4" data-voices>
+    <div data-sc-stage class="stage">
+      <div class="voices">
+        <div class="voice voice--her">
+          <p class="tag">Her</p>
+          <h2 class="display" data-fill="0.04 0.34">What am I going to wear?</h2>
+          <p class="voice__worry" data-fade="0.3 0.42">And what if someone turns up in the same dress as me?</p>
+        </div>
+        <div class="voices__seam" aria-hidden="true"><i></i></div>
+        <div class="voice voice--mum">
+          <p class="tag">Mum</p>
+          <p class="display" data-fill="0.44 0.74">I just want her to feel amazing.</p>
+          <p class="voice__worry" data-fade="0.7 0.82">Without a whole day of shop after shop, and the budget to think about.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 THE INVITATION: a glass ticket tilts up into place over satin -->
+  <section data-sc-act="pin" data-sc-span="1.8" data-sc-drift="#FBF7F4" data-invite>
+    <div data-sc-stage class="stage">
+      <img class="fill invite__bg" src="assets/dress-satin.webp" alt="" loading="lazy">
+      <div class="invite__veil"></div>
+      <div class="ticket">
+        <div class="ticket__card glass">
+          <div class="ticket__top"><span>Prom Fever pop-up</span><span class="soft">For her, and for you</span></div>
+          <h2 class="display">You're both invited.</h2>
+          <hr class="ticket__rule">
+          <dl>
+            <dt>Tickets</dt><dd>Free, places are limited</dd>
+            <dt>When</dt><dd>Three Sundays, January to March 2027</dd>
+            <dt>Where</dt><dd>Hollingbury Golf Club, Brighton</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 THE DAY: a gallery that slides sideways as you scroll down -->
+  <section data-sc-act="pin" data-sc-span="3" data-sc-drift="#FDE3E7" data-day>
+    <div data-sc-stage class="stage">
+      <div class="day__head">
+        <h2 class="display">Her afternoon.<br>And yours.</h2>
+        <p class="soft">Everything she'll love, and everything that makes it easy for you.</p>
+      </div>
+      <div class="rail">
+        <figure class="card"><img src="assets/catwalk.webp" alt="Models in prom gowns walking the catwalk while the audience films on their phones" loading="lazy" style="object-position: 50% 25%">
+          <figcaption class="glass"><p class="tag">For her</p><h3>A live catwalk show</h3><p>See how each gown moves before she tries it.</p></figcaption></figure>
+        <figure class="card"><img src="assets/discover.webp" alt="Friends smiling as they look through a rail of sparkling prom gowns" loading="lazy" style="object-position: 55% 30%">
+          <figcaption class="glass"><p class="tag">For her</p><h3>The virtual fitting room</h3><p>Scan the QR code on a dress to see it modelled.</p></figcaption></figure>
+        <figure class="card"><img src="assets/popup-floor.webp" alt="A busy pop-up with friends browsing rails of gowns" loading="lazy" style="object-position: 45% 40%">
+          <figcaption class="glass"><p class="tag">For her</p><h3>A live DJ</h3><p>Music on all afternoon.</p></figcaption></figure>
+        <div class="card card--type card--rose"><p class="tag">For you</p><div><h3>Free parking</h3><p>No circling town centres with dress bags.</p></div></div>
+        <div class="card card--type card--night"><p class="tag">For you</p><div><h3>A bar</h3><p>Soft and alcoholic drinks to buy while she tries on.</p></div></div>
+        <figure class="card"><img src="assets/carpet-four.webp" alt="Four girls in gowns posing on a red carpet while cameras flash" loading="lazy" style="object-position: 50% 30%">
+          <figcaption class="glass"><p class="tag">For you both</p><h3>A photographer</h3><p>Catching the moments you'll want to keep.</p></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 THE RAILS: the rails pull back into view, the prices land -->
+  <section data-sc-act="pin" data-sc-span="1.7" data-sc-drift="#FBF7F4" data-rails>
+    <div data-sc-stage class="stage">
+      <img class="fill rails__bg" src="assets/rails.webp" alt="Rails of pink and silver prom gowns" loading="lazy">
+      <div class="rails__veil"></div>
+      <div class="rails__copy">
+        <p class="tag">Our anticipated dress prices</p>
+        <p class="price">£299 <span>to</span> £650</p>
+        <p>The Prom Fever collection, on the rails all afternoon. She picks the next one to try. You hold the one after that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 THE CURTAIN: the lights go down. Authored silence. -->
+  <section data-sc-act="pin" data-sc-span="1.5" data-sc-drift="#1F0D14" data-hush class="hush">
+    <div data-sc-stage class="stage">
+      <p class="whisper" data-fill="0.36 0.8">Mum? I'm ready.</p>
+      <div class="slit" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 7 PEAK: the seam opens, and there she is -->
+  <section data-sc-act="pin" data-sc-span="3" data-sc-drift="#1F0D14" data-peak class="peak">
+    <div data-sc-stage class="stage">
+      <div class="peak__frame">
+        <img class="peak__plate" src="assets/popup-smile.webp" alt="" loading="lazy">
+        <img class="peak__her" src="assets/cut-her.webp" alt="A girl in a pink sequinned gown turning to smile over her shoulder" loading="lazy">
+        <div class="peak__dim"></div>
+        <div class="peak__shade"></div>
+      </div>
+      <div class="peak__line"><h2 class="display">There she is.</h2></div>
+    </div>
+  </section>
+
+  <!-- 8 THE PROMISE: one shared voice -->
+  <section data-sc-act="pin" data-sc-span="1.6" data-sc-drift="#FBF7F4" data-promise>
+    <div data-sc-stage class="stage">
+      <div class="promise">
+        <p class="tag">Our promise to you both</p>
+        <blockquote><p data-fill="0.06 0.62">Once you've chosen your dress, we won't sell the same design to another girl from your school.</p></blockquote>
+        <p class="promise__after">Because her prom look should be hers <i class="heart" aria-hidden="true"></i></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 TOGETHER: the page settles and waits -->
+  <section id="book" data-sc-act="pin" data-sc-span="1" data-sc-drift="#FBF7F4" data-close>
+    <div data-sc-stage class="stage">
+      <div class="close">
+        <h2 class="display">Come and find it together.</h2>
+        <ul class="dates">
+          <li><span>Sunday</span><b>24 Jan</b><span>3pm to 8pm</span></li>
+          <li><span>Sunday</span><b>28 Feb</b><span>3pm to 8pm</span></li>
+          <li><span>Sunday</span><b>21 Mar</b><span>3pm to 8pm</span></li>
+        </ul>
+        <p class="close__info">Hollingbury Golf Club, Brighton, all in 2027. Tickets are free and places are limited: one for the Year 11 student and one for the parent or guardian coming with her. Dads, carers and guardians are just as welcome.</p>
+        <a class="pill" href="https://www.tickettailor.com/events/promfever/2480882?ref=together">Book your free places</a>
+      </div>
+      <footer class="foot">
+        <a href="https://getpromfever.com">getpromfever.com</a>
+        <a href="https://www.instagram.com/prom.fever/">@prom.fever</a>
+        <a href="https://getpromfever.com/privacy-and-terms">Privacy &amp; Terms</a>
+        <span>© PromFever Ltd</span>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<script src="vendor/lenis.min.js"></script>
+<script src="scrollcraft.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+<script>
+/* The choreography. The engine pins each act and publishes its progress as
+   --sc-p; everything you see move is driven from that one number per act, so
+   every frame is scrubbed by the reader's own scroll and runs backwards too. */
+(function () {
+  var reduce = ScrollCraft.reduce;
+  var phone = matchMedia('(max-width: 760px)');
+  var c01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
+  var out = function (x) { x = c01(x); return 1 - Math.pow(1 - x, 3); };
+  var io = function (x) { x = c01(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  var win = function (p, a, b) { return c01((p - a) / (b - a)); };
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var q = function (s, r) { return (r || document).querySelector(s); };
+  var P = function (el) { return parseFloat(el.style.getPropertyValue('--sc-p')) || 0; };
+  var cache = new Map();
+  function set(el, k, v) { var m = cache.get(el); if (!m) cache.set(el, m = {}); if (m[k] !== v) { m[k] = v; el.style.setProperty(k, v); } }
+
+  // Inertia on desktop scroll wheels. Touch keeps the phone's own momentum.
+  if (!reduce && window.Lenis && matchMedia('(pointer: fine)').matches) {
+    var lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 0.9 });
+    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); lenis.scrollTo(a.getAttribute('href'), { duration: 1.6 }); });
+    });
+  }
+
+  // Words that fill in as you read them: dim until the scroll reaches them.
+  var fills = [].slice.call(document.querySelectorAll('[data-fill]')).map(function (el) {
+    var w = el.getAttribute('data-fill').split(' ').map(parseFloat);
+    var words = el.textContent.trim().split(/\s+/);
+    el.setAttribute('aria-label', el.textContent.trim());
+    el.innerHTML = words.map(function (x) { return '<span class="w" aria-hidden="true">' + x + '</span>'; }).join(' ');
+    return { el: el, act: el.closest('[data-sc-act]'), a: w[0], b: w[1], spans: [].slice.call(el.children) };
+  });
+  var fades = [].slice.call(document.querySelectorAll('[data-fade]')).map(function (el) {
+    var w = el.getAttribute('data-fade').split(' ').map(parseFloat);
+    return { el: el, act: el.closest('[data-sc-act]'), a: w[0], b: w[1] };
+  });
+
+  var hero = q('[data-hero]'), heroT = q('.hero__title'), heroPlate = q('.hero__plate'), heroPeople = q('.hero__people'), heroVeil = q('.hero__veil');
+  var voices = q('[data-voices]'), seamHeart = q('.voices__seam');
+  var invite = q('[data-invite]'), ticket = q('.ticket__card'), inviteBg = q('.invite__bg');
+  var day = q('[data-day]'), rail = q('.rail');
+  var rails = q('[data-rails]'), railsBg = q('.rails__bg'), railsCopy = q('.rails__copy');
+  var hush = q('[data-hush]'), slit = q('.slit');
+  var peak = q('[data-peak]'), frame = q('.peak__frame'), peakLine = q('.peak__line');
+  var promise = q('[data-promise]'), after = q('.promise__after');
+  var close = q('[data-close]'), nav = q('.nav');
+  var darkActs = [hush, peak];
+
+  function tick() {
+    var vh = innerHeight, vw = innerWidth, mob = phone.matches;
+
+    // 1. The frame opens out from a picture on the page to the whole screen.
+    var p = P(hero), g = io(win(p, 0.02, 0.62));
+    var t0 = mob ? 0.47 : 0.52, s0 = mob ? 0.06 : 0.2;
+    var ct = (lerp(t0, 0, g) * vh).toFixed(1) + 'px', cs = (lerp(s0, 0, g) * vw).toFixed(1) + 'px', cb = (lerp(0.05, 0, g) * vh).toFixed(1) + 'px';
+    [heroPlate, heroPeople].forEach(function (el) { set(el, '--ct', ct); set(el, '--cs', cs); set(el, '--cb', cb); });
+    var ps = reduce ? 1 : lerp(1.18, 1, g);
+    set(heroPlate, '--ps', ps.toFixed(4));
+    set(heroPeople, '--qs', (reduce ? 1 : ps * lerp(1.035, 1.06, g)).toFixed(4));
+    set(heroVeil, '--hv', g.toFixed(3));
+    var py = (reduce ? 0 : lerp(0.34, 0, g) * vh).toFixed(1) + 'px';
+    set(heroPlate, '--py', py); set(heroPeople, '--py', py);
+    var tf = win(p, 0.12, 0.4);
+    heroT.style.opacity = (1 - tf).toFixed(3);
+    heroT.style.transform = reduce ? 'none' : 'translate3d(0,' + (-tf * 8).toFixed(2) + 'vh,0) scale(' + (1 - 0.08 * tf).toFixed(4) + ')';
+
+    // Fill-in words and the lines that follow them.
+    fills.forEach(function (f) {
+      var n = f.spans.length, t = win(P(f.act), f.a, f.b) * n;
+      for (var i = 0; i < n; i++) f.spans[i].style.opacity = (0.14 + 0.86 * c01(t - i)).toFixed(3);
+    });
+    fades.forEach(function (f) {
+      var k = out(win(P(f.act), f.a, f.b));
+      f.el.style.opacity = k.toFixed(3);
+      f.el.style.transform = reduce ? 'none' : 'translate3d(0,' + ((1 - k) * 18).toFixed(1) + 'px,0)';
+    });
+    set(seamHeart, '--hy', (io(win(P(voices), 0.04, 0.82)) * 100).toFixed(2) + '%');
+
+    // 3. The ticket tilts up out of the satin and settles flat.
+    p = P(invite); g = out(win(p, 0.04, 0.5));
+    set(ticket, '--ty', (reduce ? 0 : (1 - g) * 60).toFixed(2) + 'vh');
+    set(ticket, '--rx', (reduce ? 0 : (1 - g) * 32).toFixed(2) + 'deg');
+    set(ticket, '--ts', (reduce ? 1 : lerp(0.9, 1, g)).toFixed(4));
+    ticket.style.opacity = reduce ? g.toFixed(3) : c01(g * 1.6).toFixed(3);
+    set(inviteBg, '--bs', (reduce ? 1 : lerp(1.16, 1, io(p))).toFixed(4));
+
+    // 4. Down the page becomes along the rail.
+    p = P(day);
+    var travel = Math.max(rail.scrollWidth - vw, 0);
+    set(rail, '--rx', (-travel * io(win(p, 0.06, 0.94))).toFixed(1) + 'px');
+
+    // 5. The rails pull back, then the prices land.
+    p = P(rails);
+    set(railsBg, '--bs', (reduce ? 1 : lerp(1.3, 1, out(win(p, 0, 0.7)))).toFixed(4));
+    g = out(win(p, 0.28, 0.55));
+    set(railsCopy, '--co', g.toFixed(3));
+    set(railsCopy, '--cy', (reduce ? 0 : (1 - g) * 40).toFixed(1) + 'px');
+
+    // 6. In the dark, a line of light: the gap in the curtain.
+    set(slit, '--sy', io(win(P(hush), 0.08, 0.7)).toFixed(4));
+
+    // 7. The line of light opens into the picture, and she comes forward.
+    p = P(peak); g = io(win(p, 0.02, 0.46));
+    if (reduce) { set(frame, '--sw', '0%'); frame.style.opacity = g.toFixed(3); }
+    else set(frame, '--sw', ((1 - g) * 49.9).toFixed(3) + '%');
+    var step = out(win(p, 0.08, 0.7));
+    set(frame, '--ps', (reduce ? 1 : lerp(1.16, 1, step)).toFixed(4));
+    set(frame, '--hs', (reduce ? 1 : lerp(1.2, 1.06, step)).toFixed(4));
+    set(frame, '--dim', (0.6 * (1 - out(win(p, 0.1, 0.55)))).toFixed(3));
+    var lo = out(win(p, 0.56, 0.74));
+    set(frame, '--lo', lo.toFixed(3));
+    set(peakLine, '--lo', lo.toFixed(3));
+    set(peakLine, '--ly', (reduce ? 0 : (1 - lo) * 40).toFixed(1) + 'px');
+
+    // 8. After the promise, one quiet line.
+    set(after, '--ao', out(win(P(promise), 0.64, 0.8)).toFixed(3));
+
+    // Nav: dark over the dark acts; its button steps aside when the booking button is on screen.
+    var dark = darkActs.some(function (a) { var r = a.getBoundingClientRect(); return r.top <= 30 && r.bottom > 30; });
+    nav.classList.toggle('is-dark', dark);
+    nav.classList.toggle('no-cta', close.getBoundingClientRect().top < vh * 0.85);
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

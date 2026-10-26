@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "promfever-landing/builds/together/index.html"
+        ],
+        "createdAt": "2026-10-26T19:00:36.492Z",
+        "reason": "claude decided: detector reads the scrollcraft.css engine default colours (#d8ff3e, #f4f2ef, #9a9ba1) that this page overrides in :root; rendered contrast is checked by shoot.mjs instead"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "promfever-landing/builds/together/index.html"
+        ],
+        "createdAt": "2026-10-26T19:00:36.519Z",
+        "reason": "claude decided: the only glow is the literal line of light under the curtain in the dark hush act"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "promfever-landing/builds/together/index.html"
+        ],
+        "createdAt": "2026-10-26T19:00:36.545Z",
+        "reason": "claude decided: flagged elements are full-viewport pinned stages and full-bleed photo cards with inset captions"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "promfever-landing/builds/together/index.html"
+        ],
+        "createdAt": "2026-10-26T19:00:36.571Z",
+        "reason": "claude decided: the flagged 'to' renders at about 24px inside the large price"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "promfever-landing/builds/together/index.html"
+        ],
+        "createdAt": "2026-10-26T19:00:36.596Z",
+        "reason": "claude decided: 1.04 leading is on large Bodoni display headlines only"
+      }
+    ]
+  }
+}
