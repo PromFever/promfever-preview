@@ -82,7 +82,7 @@
   .hero__plate img, .hero__people img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
     transform-origin: 50% 30%; }
   .hero__plate img { transform: translate3d(0, var(--py, 34vh), 0) scale(var(--ps, 1.2)); }
-  .hero__people img { transform: translate3d(0, var(--py, 34vh), 0) scale(var(--qs, 1.23)); }
+  .hero__people img { transform: translate3d(0, var(--py, 34vh), 0) scale(var(--qs, 1.18)); }
   .hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(251 247 244 / 0.75) 0%, rgb(251 247 244 / 0.25) 30%, transparent 46%); opacity: var(--hv, 0); }
 
   /* -------------------------------------------------------- 2 voices ---- */
@@ -146,7 +146,7 @@
   .peak__frame { position: absolute; inset: 0; clip-path: inset(0 var(--sw, 49.9%) 0 var(--sw, 49.9%)); }
   .peak__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 22%; transform-origin: 62% 100%; }
   .peak__plate { transform: scale(var(--ps, 1.16)); }
-  .peak__her { transform: scale(var(--hs, 1.22)); }
+  .peak__her { transform: scale(var(--hs, 1.16)); }
   .peak__dim { position: absolute; inset: 0; background: var(--night); opacity: var(--dim, 0.5); }
   .peak__shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgb(31 13 20 / 0.7) 0%, rgb(31 13 20 / 0.2) 30%, transparent 48%); opacity: var(--lo, 0); }
   .peak__line { position: absolute; z-index: 3; left: var(--gutter); bottom: 9vh; margin: 0; opacity: var(--lo, 0); transform: translate3d(0, var(--ly, 40px), 0); }
@@ -417,7 +417,7 @@
     [heroPlate, heroPeople].forEach(function (el) { set(el, '--ct', ct); set(el, '--cs', cs); set(el, '--cb', cb); });
     var ps = reduce ? 1 : lerp(1.18, 1, g);
     set(heroPlate, '--ps', ps.toFixed(4));
-    set(heroPeople, '--qs', (reduce ? 1 : ps * lerp(1.035, 1.06, g)).toFixed(4));
+    set(heroPeople, '--qs', ps.toFixed(4));
     set(heroVeil, '--hv', g.toFixed(3));
     var py = (reduce ? 0 : lerp(0.34, 0, g) * vh).toFixed(1) + 'px';
     set(heroPlate, '--py', py); set(heroPeople, '--py', py);
@@ -466,7 +466,7 @@
     else set(frame, '--sw', ((1 - g) * 49.9).toFixed(3) + '%');
     var step = out(win(p, 0.08, 0.7));
     set(frame, '--ps', (reduce ? 1 : lerp(1.16, 1, step)).toFixed(4));
-    set(frame, '--hs', (reduce ? 1 : lerp(1.2, 1.06, step)).toFixed(4));
+    set(frame, '--hs', (reduce ? 1 : lerp(1.16, 1, step)).toFixed(4));
     set(frame, '--dim', (0.6 * (1 - out(win(p, 0.1, 0.55)))).toFixed(3));
     var lo = out(win(p, 0.56, 0.74));
     set(frame, '--lo', lo.toFixed(3));
